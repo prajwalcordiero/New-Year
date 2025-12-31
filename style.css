@@ -247,80 +247,101 @@ body{
     opacity: 0; 
   }
 }
-/* Media Query for Phones (max-width: 600px) */
 @media screen and (max-width: 600px) {
-    
-    /* Center the message and scale it down */
+    /* 1. Fix the Body/Overflow */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 2. Scale down the Message */
     .msg {
-        font-size: 45px;
-        top: 20%; /* Move it up so it doesn't hit the year */
+        font-size: 40px;
+        width: 100%;
+        top: 25%;
+        margin-top: 0;
     }
 
     @keyframes animation {
-        0% { opacity: 0; transform: translateY(0); }
-        100% { opacity: 1; transform: translateY(-50px); }
+        0% { opacity: 0; transform: translateY(50px); }
+        100% { opacity: 1; transform: translateY(-20px); }
     }
 
-    /* Adjust the Year container */
+    /* 3. Center the Year Container */
     .year {
-        top: 40%; /* Relative position from top */
+        top: 45%;
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        height: 200px;
     }
 
     .year > span {
-        font-size: 80px;
-        letter-spacing: -2px;
+        font-size: 70px; /* Smaller for mobile */
+        letter-spacing: 2px;
+        position: relative;
     }
 
-    /* Adjust the spacing between 202 and the changing digit */
+    /* Reset the margins that were used for desktop */
     .first {
-        margin-right: 40px;
+        margin-right: 15px;
     }
 
-    /* Fix the "Old" digit position */
+    /* 4. Fix the Animation for the 'Old' number (5) */
     .old {
-        margin-left: -35px;
+        position: absolute;
+        left: 50%;
+        margin-left: 28px; /* Fine-tune this to sit over the '6' */
+        top: 0;
+        animation: animeMobile 3s ease-in-out 4s forwards;
     }
 
-    /* Fix the "New" digit (6) animation for mobile */
+    @keyframes animeMobile {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-200px); opacity: 0; }
+    }
+
+    /* 5. Fix the 'New' number (6) and Balloon animation */
+    /* We use translate instead of 'right' to keep it centered */
     .new {
-        right: auto; /* Reset desktop right */
+        position: absolute;
         left: 50%;
-        transform: translateX(100px); /* Adjust this to sit perfectly after 202 */
+        right: auto;
+        transform: translateX(500px); /* Start off-screen right */
         animation: newMobile 5s ease-in-out 1.5s forwards;
     }
 
     @keyframes newMobile {
-        0% { transform: translateX(300px); opacity: 0; }
-        40% { transform: translateX(45px); opacity: 1; }
-        90% { transform: translateX(45px); }
+        0% { transform: translateX(500px); }
+        40% { transform: translateX(28px); } /* Moves to its spot */
+        90% { transform: translateX(28px); }
         100% { 
-            transform: translateX(45px); 
+            transform: translateX(28px); 
             color: yellow; 
         }
     }
 
-    /* Adjust the balloon to follow the same path as the "6" */
     .ballon {
-        width: 50px;
-        height: 70px;
-        right: auto;
+        width: 45px;
+        height: 60px;
         left: 50%;
-        margin-top: -120px;
+        right: auto;
+        margin-top: -100px; /* Moves it above the number */
+        transform: translateX(500px);
         animation: ballMobile 5s ease-in-out 1.5s forwards;
     }
 
     @keyframes ballMobile {
-        0% { transform: translateX(300px); }
-        40% { transform: translateX(45px); top: 50%; }
-        50% { transform: translateX(45px); top: 50%; }
-        100% { transform: translateX(45px); top: -200%; }
+        0% { transform: translateX(500px); }
+        40% { transform: translateX(28px); top: 50%; }
+        50% { transform: translateX(28px); top: 50%; }
+        100% { transform: translateX(28px); top: -200%; } /* Flies away */
     }
 
-    /* Scale down fireworks to prevent horizontal scroll */
+    /* 6. Firework Scaling */
     .firework {
         --finalSize: 60vmin;
     }
