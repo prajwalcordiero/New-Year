@@ -1,0 +1,249 @@
+body{
+    background: #000;
+    overflow: hidden;
+    height: 100vh;
+    
+}
+
+.msg{
+    width: 100%;;
+    font-size: 100px;
+    font-family: cursive;
+    font-weight: bold;
+    color: #ff00c3;    
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+    animation: animation 6s ease-in-out 2s forwards;
+}
+
+@keyframes animation{
+    0%{
+        opacity: 0;
+        margin-top: 0;
+    }
+   
+    100%{
+        opacity: 1;
+        margin-top: -200px;
+    }
+}
+
+.y1{
+    color: #fff;
+    animation: col1 6s ease-in-out 4s forwards;
+}
+@keyframes col1{
+    0%{
+        color: #fff;
+    }
+    100%{
+        color: rgb(216, 122, 15);
+    }
+}
+.y2{
+    color: #fff;
+    animation: col2 6s ease-in-out 4s forwards;
+}
+
+@keyframes col2{
+    0%{
+        color: #fff;
+    }
+    100%{
+        color: rgb(45, 173, 228);
+    }
+}
+.y3{
+    color: #fff;
+    animation: col3 6s ease-in-out 4s forwards;
+}
+@keyframes col3{
+    0%{
+        color: #fff;
+    }
+    100%{
+        color: rgb(138, 31, 126);
+    }
+}
+.y4{
+    color: #fff;
+    animation: col4 6s ease-in-out 4s forwards;
+}
+
+.old{
+    color: #fff;
+    position: absolute;
+    top: 0%;
+    animation: anime 3s ease-in-out 4s forwards;
+    margin-left: -80px;
+}
+
+@keyframes anime{
+    0%{
+        top: 0%;
+    }
+    
+    100%{
+        top: -350%;
+    }
+}
+
+.year{
+    position: absolute;
+    top: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.year > span{
+    font-size: 175px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -12px;
+}
+
+.first{
+    margin-right: 100px;
+}
+
+.new{
+    position: absolute;
+    right: -100px;
+    animation: new 5s ease-in-out 1.5s forwards;
+}
+
+@keyframes new{
+    0%{
+        right: -200px;
+    }
+    40%{
+        right: 400px;
+    }
+    90%{
+        right: 400px;
+    }
+    100%{
+        right: 530px;
+        color: yellow;
+    }
+}
+
+.ballon{
+    width: 100px;
+    height: 130px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    margin-top: -285px;
+    animation: ball 5s ease-in-out 1.5s forwards;
+}
+
+.ballon::after{
+    content: '';
+    width: 4px;
+    height: 100px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -2px;
+    bottom: -100px;
+}
+
+.ballon::before{
+    content: '';
+    border-style: solid;
+    border-width: 0px 10px 20px 10px;
+    border-color: transparent transparent #fd3553 transparent;
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    margin-left: -10px;
+}
+
+@keyframes ball{
+    0%{
+        right: -200px;
+    }
+    40%{
+        right: 400px;
+
+    }
+    50%{
+        right: 530px;
+        top:50%;
+    }
+
+    100%{
+        right: 530px;
+        top:-200%;
+    }
+}
+.firework {
+  --initialSize: 0.5vmin;
+  --finalSize: 50vmin;
+  --particleSize: 0.4vmin;
+  --color1: #ff0040;
+  --color2: #ff7b00;
+  --color3: #ff00d4;
+  --color4: #00f2ff;
+  --color5: #ffffff;
+  --y: -30vmin;
+  --x: -50%;
+  
+  /* Increased density: More radial gradients for more "sparks" */
+  --_g: no-repeat radial-gradient(circle, var(--color1) var(--particleSize), #0000 0);
+  background: 
+    var(--_g) 50% 0%, var(--_g) 100% 45%, var(--_g) 0% 50%, var(--_g) 100% 0%, 
+    var(--_g) 0% 100%, var(--_g) 90% 90%, var(--_g) 10% 90%, var(--_g) 33% 33%,
+    var(--_g) 67% 67%, var(--_g) 10% 10%, var(--_g) 90% 10%, var(--_g) 45% 100%,
+    var(--_g) 55% 80%, var(--_g) 25% 70%, var(--_g) 85% 30%, var(--_g) 15% 20%;
+  background-size: var(--initialSize) var(--initialSize);
+  background-repeat: no-repeat;
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--initialSize);
+  aspect-ratio: 1;
+  animation: firework 2.5s infinite;
+}
+
+/* Second and third fireworks with different colors and timing */
+.firework:nth-child(2) {
+  left: 20%;
+  top: 30%;
+  animation-delay: -0.8s;
+  --color1: #00ff88;
+  --color2: #00ccff;
+}
+
+.firework:nth-child(3) {
+  left: 80%;
+  top: 40%;
+  animation-delay: -1.5s;
+  --color1: #ffee00;
+  --color2: #ff5e00;
+}
+
+@keyframes firework {
+  0% { 
+    transform: translate(var(--x), 60vh); /* Start at bottom */
+    width: var(--initialSize);
+    opacity: 1;
+  }
+  30% {
+    width: var(--initialSize);
+    opacity: 1;
+  }
+  100% { 
+    width: var(--finalSize); 
+    /* The Y-translate here creates the "falling" gravity effect */
+    transform: translate(var(--x), var(--y)) translateY(15vh); 
+    opacity: 0; 
+  }
+}
