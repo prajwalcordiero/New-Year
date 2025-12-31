@@ -247,64 +247,81 @@ body{
     opacity: 0; 
   }
 }
-
 /* Media Query for Phones (max-width: 600px) */
 @media screen and (max-width: 600px) {
     
-    /* Resize the main "Happy New Year" message */
+    /* Center the message and scale it down */
     .msg {
-        font-size: 40px; /* Reduced from 100px */
-        top: 40%;
+        font-size: 45px;
+        top: 20%; /* Move it up so it doesn't hit the year */
     }
 
-    /* Adjust the big Year numbers */
-    .year > span {
-        font-size: 80px; /* Reduced from 175px */
-        letter-spacing: -4px;
+    @keyframes animation {
+        0% { opacity: 0; transform: translateY(0); }
+        100% { opacity: 1; transform: translateY(-50px); }
     }
 
-    /* Reposition the year container so it doesn't get cut off */
+    /* Adjust the Year container */
     .year {
-        top: 300px;
+        top: 40%; /* Relative position from top */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
 
-    /* Adjust the "New" digit position for the animation */
-    @keyframes new {
-        0% { right: -100px; }
-        40% { right: 50%; transform: translateX(50%); }
-        90% { right: 50%; transform: translateX(50%); }
+    .year > span {
+        font-size: 80px;
+        letter-spacing: -2px;
+    }
+
+    /* Adjust the spacing between 202 and the changing digit */
+    .first {
+        margin-right: 40px;
+    }
+
+    /* Fix the "Old" digit position */
+    .old {
+        margin-left: -35px;
+    }
+
+    /* Fix the "New" digit (6) animation for mobile */
+    .new {
+        right: auto; /* Reset desktop right */
+        left: 50%;
+        transform: translateX(100px); /* Adjust this to sit perfectly after 202 */
+        animation: newMobile 5s ease-in-out 1.5s forwards;
+    }
+
+    @keyframes newMobile {
+        0% { transform: translateX(300px); opacity: 0; }
+        40% { transform: translateX(45px); opacity: 1; }
+        90% { transform: translateX(45px); }
         100% { 
-            right: 50%; 
-            transform: translateX(110px); /* Fine-tune this to align with the other digits */
+            transform: translateX(45px); 
             color: yellow; 
         }
     }
 
-    /* Resize and adjust the balloon */
+    /* Adjust the balloon to follow the same path as the "6" */
     .ballon {
-        width: 60px;
-        height: 80px;
-        margin-top: -180px;
+        width: 50px;
+        height: 70px;
+        right: auto;
+        left: 50%;
+        margin-top: -120px;
+        animation: ballMobile 5s ease-in-out 1.5s forwards;
     }
 
-    .ballon::after {
-        height: 60px;
-        bottom: -60px;
+    @keyframes ballMobile {
+        0% { transform: translateX(300px); }
+        40% { transform: translateX(45px); top: 50%; }
+        50% { transform: translateX(45px); top: 50%; }
+        100% { transform: translateX(45px); top: -200%; }
     }
 
-    /* Scale down the fireworks so they don't cover the whole screen */
+    /* Scale down fireworks to prevent horizontal scroll */
     .firework {
-        --finalSize: 70vmin; /* Smaller burst for portrait screens */
-    }
-
-    /* Reposition fireworks so they are more centered on narrow screens */
-    .firework:nth-child(2) {
-        left: 15%;
-        top: 25%;
-    }
-
-    .firework:nth-child(3) {
-        left: 85%;
-        top: 35%;
+        --finalSize: 60vmin;
     }
 }
