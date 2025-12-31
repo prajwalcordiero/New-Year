@@ -247,3 +247,64 @@ body{
     opacity: 0; 
   }
 }
+
+/* Media Query for Phones (max-width: 600px) */
+@media screen and (max-width: 600px) {
+    
+    /* Resize the main "Happy New Year" message */
+    .msg {
+        font-size: 40px; /* Reduced from 100px */
+        top: 40%;
+    }
+
+    /* Adjust the big Year numbers */
+    .year > span {
+        font-size: 80px; /* Reduced from 175px */
+        letter-spacing: -4px;
+    }
+
+    /* Reposition the year container so it doesn't get cut off */
+    .year {
+        top: 300px;
+    }
+
+    /* Adjust the "New" digit position for the animation */
+    @keyframes new {
+        0% { right: -100px; }
+        40% { right: 50%; transform: translateX(50%); }
+        90% { right: 50%; transform: translateX(50%); }
+        100% { 
+            right: 50%; 
+            transform: translateX(110px); /* Fine-tune this to align with the other digits */
+            color: yellow; 
+        }
+    }
+
+    /* Resize and adjust the balloon */
+    .ballon {
+        width: 60px;
+        height: 80px;
+        margin-top: -180px;
+    }
+
+    .ballon::after {
+        height: 60px;
+        bottom: -60px;
+    }
+
+    /* Scale down the fireworks so they don't cover the whole screen */
+    .firework {
+        --finalSize: 70vmin; /* Smaller burst for portrait screens */
+    }
+
+    /* Reposition fireworks so they are more centered on narrow screens */
+    .firework:nth-child(2) {
+        left: 15%;
+        top: 25%;
+    }
+
+    .firework:nth-child(3) {
+        left: 85%;
+        top: 35%;
+    }
+}
