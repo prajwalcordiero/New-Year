@@ -249,63 +249,68 @@ body{
 }
 
 @media screen and (max-width: 600px) {
-    /* 1. Force the layout to be centered and contained */
+    /* Reset layout for mobile */
     body {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
+        align-items: center;
     }
 
-    /* 2. Message Adjustment */
+    /* 1. Happy New Year Message */
     .msg {
-        font-size: 38px;
+        font-size: 42px;
         top: 20%;
         width: 100%;
-        text-align: center;
         margin-top: 0;
         position: absolute;
     }
 
     @keyframes animation {
-        0% { opacity: 0; transform: translateY(0); }
-        100% { opacity: 1; transform: translateY(-40px); }
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(-20px); }
     }
 
-    /* 3. The Year Container - Fixed alignment */
+    /* 2. The Year Container - Using Flex to force order */
     .year {
-        position: relative;
-        top: 50px; /* Moves it down from the message */
+        position: absolute;
+        top: 45%;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        text-align: center;
+        gap: 0; /* Tightens the spacing between digits */
     }
 
-    .year > span {
-        font-size: 80px; /* Proper phone size */
-        letter-spacing: -2px;
-        position: relative;
+    .year > span, .first > span {
+        font-size: 85px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        letter-spacing: -2px; /* Reduced to look natural */
     }
 
-    /* Remove the huge desktop margins */
+    /* Reset desktop margins */
     .first {
         margin-right: 0;
-        display: flex;
     }
 
-    /* 4. The 'Old' 5 - Positioning it exactly over where the 6 will land */
+    /* 3. The 5 and 6 Logic */
+    /* We place them in the same relative spot */
     .old {
         position: absolute;
-        left: calc(50% + 45px); /* Centers it, then pushes it to the 4th digit spot */
+        left: calc(50% + 48px); /* Adjusted to sit right after '202' */
         margin-left: 0;
-        top: 0;
+        top: -45px; /* Centers it vertically with the other numbers */
         animation: animeMobile 3s ease-in-out 4s forwards;
+    }
+
+    .new {
+        position: absolute;
+        left: calc(50% + 48px);
+        top: -45px;
+        right: auto;
+        transform: translateX(100vw); /* Start off-screen */
+        animation: newMobile 5s ease-in-out 1.5s forwards;
     }
 
     @keyframes animeMobile {
@@ -313,45 +318,43 @@ body{
         100% { transform: translateY(-200%); opacity: 0; }
     }
 
-    /* 5. The 'New' 6 - Flying in from the side to the center */
-    .new {
-        position: absolute;
-        left: 50%;
-        right: auto;
-        transform: translateX(200vw); /* Start way off screen */
-        animation: newMobile 5s ease-in-out 1.5s forwards;
-    }
-
     @keyframes newMobile {
-        0% { transform: translateX(200vw); }
-        40% { transform: translateX(45px); } /* 45px matches the 'old' 5 position */
-        90% { transform: translateX(45px); }
+        0% { transform: translateX(100vw); }
+        40% { transform: translateX(0); } /* Lands exactly on the spot */
+        90% { transform: translateX(0); }
         100% { 
-            transform: translateX(45px); 
+            transform: translateX(0); 
             color: yellow; 
         }
     }
 
-    /* 6. The Balloon - Tracking the '6' */
+    /* 4. The Balloon - Perfectly centered on the '6' */
     .ballon {
-        width: 50px;
-        height: 65px;
-        left: 50%;
+        width: 45px;
+        height: 60px;
+        left: calc(50% + 48px); /* Matches the '6' position */
         right: auto;
-        margin-top: -110px;
-        transform: translateX(200vw);
+        margin-left: 5px; /* Centers the string on the digit */
+        margin-top: -125px; /* Moves balloon up so string touches the number */
+        transform: translateX(100vw);
         animation: ballMobile 5s ease-in-out 1.5s forwards;
     }
 
-    @keyframes ballMobile {
-        0% { transform: translateX(200vw); }
-        40% { transform: translateX(45px); top: 50%; }
-        50% { transform: translateX(45px); top: 50%; }
-        100% { transform: translateX(45px); top: -200%; }
+    /* Balloon String Adjustment */
+    .ballon::after {
+        height: 80px;
+        bottom: -80px;
     }
 
-    /* 7. Fireworks Scaling */
+    @keyframes ballMobile {
+        0% { transform: translateX(100vw); }
+        40% { transform: translateX(0); top: 50%; }
+        50% { transform: translateX(0); top: 50%; }
+        100% { transform: translateX(0); top: -200%; }
+    }
+
+    /* 5. Fireworks */
     .firework {
-        --finalSize: 65vmin;
+        --finalSize: 60vmin;
     }
 }
