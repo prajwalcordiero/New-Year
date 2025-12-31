@@ -249,6 +249,7 @@ body{
 }
 
 @media screen and (max-width: 600px) {
+    /* Reset layout for mobile */
     body {
         display: flex;
         flex-direction: column;
@@ -256,54 +257,59 @@ body{
         align-items: center;
     }
 
+    /* 1. Happy New Year Message */
     .msg {
-        font-size: 40px;
+        font-size: 42px;
         top: 20%;
-        position: absolute;
         width: 100%;
-        text-align: center;
+        margin-top: 0;
+        position: absolute;
     }
 
-    /* The Year Container */
+    @keyframes animation {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(-20px); }
+    }
+
+    /* 2. The Year Container - Using Flex to force order */
     .year {
         position: absolute;
         top: 45%;
-        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        /* This ensures the digits don't wrap or overlap */
-        white-space: nowrap; 
+        width: 100%;
+        gap: 0; /* Tightens the spacing between digits */
     }
 
     .year > span, .first > span {
-        font-size: 80px;
+        font-size: 85px;
         font-family: 'Poppins', sans-serif;
         font-weight: 700;
-        display: inline-block;
+        letter-spacing: -2px; /* Reduced to look natural */
     }
 
-    /* Spacing for the first three digits (202) */
+    /* Reset desktop margins */
     .first {
-        margin-right: 20px; /* Creates a clean gap for the 4th digit */
-        letter-spacing: -2px;
+        margin-right: 0;
     }
 
-    /* Positioning the 'Old' 5 and 'New' 6 in the same slot */
-    .old, .new, .ballon {
-        position: absolute;
-        /* This offset pushes them precisely to the end of '202' */
-        left: calc(50% + 65px); 
-    }
-
+    /* 3. The 5 and 6 Logic */
+    /* We place them in the same relative spot */
     .old {
-        top: 0;
+        position: absolute;
+        left: calc(50% + 48px); /* Adjusted to sit right after '202' */
+        margin-left: 0;
+        top: -45px; /* Centers it vertically with the other numbers */
         animation: animeMobile 3s ease-in-out 4s forwards;
     }
 
     .new {
-        top: 0;
-        transform: translateX(150vw);
+        position: absolute;
+        left: calc(50% + 48px);
+        top: -45px;
+        right: auto;
+        transform: translateX(100vw); /* Start off-screen */
         animation: newMobile 5s ease-in-out 1.5s forwards;
     }
 
@@ -313,8 +319,8 @@ body{
     }
 
     @keyframes newMobile {
-        0% { transform: translateX(150vw); }
-        40% { transform: translateX(0); }
+        0% { transform: translateX(100vw); }
+        40% { transform: translateX(0); } /* Lands exactly on the spot */
         90% { transform: translateX(0); }
         100% { 
             transform: translateX(0); 
@@ -322,29 +328,32 @@ body{
         }
     }
 
-    /* 4. The Balloon - Tied to the '6' */
+    /* 4. The Balloon - Perfectly centered on the '6' */
     .ballon {
         width: 45px;
         height: 60px;
-        margin-top: -110px; /* Adjusted so string ends at the top of the digit */
-        margin-left: -5px; /* Centers balloon over the '6' */
-        transform: translateX(150vw);
+        left: calc(50% + 48px); /* Matches the '6' position */
+        right: auto;
+        margin-left: 5px; /* Centers the string on the digit */
+        margin-top: -125px; /* Moves balloon up so string touches the number */
+        transform: translateX(100vw);
         animation: ballMobile 5s ease-in-out 1.5s forwards;
     }
 
-    /* Making the string look real */
+    /* Balloon String Adjustment */
     .ballon::after {
-        height: 70px;
-        bottom: -70px;
+        height: 80px;
+        bottom: -80px;
     }
 
     @keyframes ballMobile {
-        0% { transform: translateX(150vw); }
+        0% { transform: translateX(100vw); }
         40% { transform: translateX(0); top: 50%; }
         50% { transform: translateX(0); top: 50%; }
-        100% { transform: translateX(0); top: -250%; }
+        100% { transform: translateX(0); top: -200%; }
     }
 
+    /* 5. Fireworks */
     .firework {
         --finalSize: 60vmin;
     }
